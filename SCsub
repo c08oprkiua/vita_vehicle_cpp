@@ -1,0 +1,23 @@
+Import('env')
+
+base_files = [
+    
+]
+
+wheel_stat_files = [
+    "wheel_stats/axle.cpp",
+    "wheel_stats/compound_settings.cpp",
+    "wheel_stats/suspension.cpp",
+    "wheel_stats/tyre_settings.cpp",
+]
+
+car_stat_files = [
+    "car_stats/controls.cpp",
+    "car_stats/controls_bindings.cpp",
+    "car_stats/controls_set_gets.cpp",
+]
+
+env.add_source_files(env.modules_sources, "register_types.cpp")
+env.add_source_files(env.modules_sources, wheel_stat_files)
+env.add_source_files(env.modules_sources, car_stat_files)
+env.add_source_files(env.modules_sources, base_files)
