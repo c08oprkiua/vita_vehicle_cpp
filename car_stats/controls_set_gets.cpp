@@ -40,11 +40,11 @@ void ViVeCarControls::set_use_analog_steering(bool new_use_analog_steering){
     use_analog_steering = new_use_analog_steering;
 }
 
-double ViVeCarControls::get_steer_sensitivity(){
+float ViVeCarControls::get_steer_sensitivity(){
     return steer_sensitivity;
 }
 
-void ViVeCarControls::set_steer_sensitivity(double new_steer_sensitivity){
+void ViVeCarControls::set_steer_sensitivity(float new_steer_sensitivity){
     steer_sensitivity = new_steer_sensitivity;
 }
 
@@ -64,35 +64,35 @@ void ViVeCarControls::set_action_name_steer_right(StringName new_action_name_ste
     action_name_steer_right = new_action_name_steer_right;
 }
 
-double ViVeCarControls::get_button_steer_speed(){
+float ViVeCarControls::get_button_steer_speed(){
     return button_steer_speed;
 }
 
-void ViVeCarControls::set_button_steer_speed(double new_button_steer_speed){
+void ViVeCarControls::set_button_steer_speed(float new_button_steer_speed){
     button_steer_speed = new_button_steer_speed;
 }
 
-double ViVeCarControls::get_button_return_speed(){
+float ViVeCarControls::get_button_return_speed(){
     return button_return_speed;
 }
 
-void ViVeCarControls::set_button_return_speed(double new_button_return_speed){
+void ViVeCarControls::set_button_return_speed(float new_button_return_speed){
     button_return_speed = new_button_return_speed;
 }
 
-double ViVeCarControls::get_button_compensate_speed(){
+float ViVeCarControls::get_button_compensate_speed(){
     return button_compensate_speed;
 }
 
-void ViVeCarControls::set_button_compensate_speed(double new_button_compensate_speed){
+void ViVeCarControls::set_button_compensate_speed(float new_button_compensate_speed){
     button_compensate_speed = new_button_compensate_speed;
 }
 
-double ViVeCarControls::get_steer_amount_decay(){
+float ViVeCarControls::get_steer_amount_decay(){
     return steer_amount_decay;
 }
 
-void ViVeCarControls::set_steer_amount_decay(double new_steer_amount_decay){
+void ViVeCarControls::set_steer_amount_decay(float new_steer_amount_decay){
     steer_amount_decay = new_steer_amount_decay;
 }
 
@@ -104,11 +104,11 @@ void ViVeCarControls::set_enable_steering_assistance(bool new_enable_steering_as
     enable_steering_assistance = new_enable_steering_assistance;
 }
 
-double ViVeCarControls::get_steering_assistance(){
+float ViVeCarControls::get_steering_assistance(){
     return steering_assistance;
 }
 
-void ViVeCarControls::set_steering_assistance(double new_steering_assistance){
+void ViVeCarControls::set_steering_assistance(float new_steering_assistance){
     steering_assistance = new_steering_assistance;
 }
 
@@ -136,35 +136,35 @@ void ViVeCarControls::set_is_throttle_digital(bool new_is_throttle_digital){
     throttle.is_digital = new_is_throttle_digital;
 }
 
-double ViVeCarControls::get_on_throttle_rate(){
+float ViVeCarControls::get_on_throttle_rate(){
     return throttle.on_rate;
 }
 
-void ViVeCarControls::set_on_throttle_rate(double new_on_throttle_rate){
+void ViVeCarControls::set_on_throttle_rate(float new_on_throttle_rate){
     throttle.on_rate = new_on_throttle_rate;
 }
 
-double ViVeCarControls::get_off_throttle_rate(){
+float ViVeCarControls::get_off_throttle_rate(){
     return throttle.off_rate;
 }
 
-void ViVeCarControls::set_off_throttle_rate(double new_off_throttle_rate){
+void ViVeCarControls::set_off_throttle_rate(float new_off_throttle_rate){
     throttle.off_rate = new_off_throttle_rate;
 }
 
-double ViVeCarControls::get_minimum_throttle(){
+float ViVeCarControls::get_minimum_throttle(){
     return throttle.minimum;
 }
 
-void ViVeCarControls::set_minimum_throttle(double new_minimum_throttle){
+void ViVeCarControls::set_minimum_throttle(float new_minimum_throttle){
     throttle.minimum = new_minimum_throttle;
 }
 
-double ViVeCarControls::get_maximum_throttle(){
+float ViVeCarControls::get_maximum_throttle(){
     return throttle.maximum;
 }
 
-void ViVeCarControls::set_maximum_throttle(double new_maximum_throttle){
+void ViVeCarControls::set_maximum_throttle(float new_maximum_throttle){
     throttle.maximum = new_maximum_throttle;
 }
 
@@ -184,35 +184,35 @@ void ViVeCarControls::set_is_brake_digital(bool new_is_brake_digital){
     brake.is_digital = new_is_brake_digital;
 }
 
-double ViVeCarControls::get_on_brake_rate(){
+float ViVeCarControls::get_on_brake_rate(){
     return brake.on_rate;
 }
 
-void ViVeCarControls::set_on_brake_rate(double new_on_brake_rate){
+void ViVeCarControls::set_on_brake_rate(float new_on_brake_rate){
     brake.on_rate = new_on_brake_rate;
 }
 
-double ViVeCarControls::get_off_brake_rate(){
+float ViVeCarControls::get_off_brake_rate(){
     return brake.off_rate;
 }
 
-void ViVeCarControls::set_off_brake_rate(double new_off_brake_rate){
+void ViVeCarControls::set_off_brake_rate(float new_off_brake_rate){
     brake.off_rate = new_off_brake_rate;
 }
 
-double ViVeCarControls::get_minimum_brake(){
+float ViVeCarControls::get_minimum_brake(){
     return brake.minimum;
 }
 
-void ViVeCarControls::set_minimum_brake(double new_minimum_brake){
+void ViVeCarControls::set_minimum_brake(float new_minimum_brake){
     brake.minimum = new_minimum_brake;
 }
 
-double ViVeCarControls::get_maximum_brake(){
+float ViVeCarControls::get_maximum_brake(){
     return brake.maximum;
 }
 
-void ViVeCarControls::set_maximum_brake(double new_maximum_brake){
+void ViVeCarControls::set_maximum_brake(float new_maximum_brake){
     brake.maximum = new_maximum_brake;
 }
 
@@ -232,35 +232,35 @@ void ViVeCarControls::set_is_handbrake_digital(bool new_is_handbrake_digital){
     handbrake.is_digital = new_is_handbrake_digital;
 }
 
-double ViVeCarControls::get_on_handbrake_rate(){
+float ViVeCarControls::get_on_handbrake_rate(){
     return handbrake.on_rate;
 }
 
-void ViVeCarControls::set_on_handbrake_rate(double new_on_handbrake_rate){
+void ViVeCarControls::set_on_handbrake_rate(float new_on_handbrake_rate){
     handbrake.on_rate = new_on_handbrake_rate;
 }
 
-double ViVeCarControls::get_off_handbrake_rate(){
+float ViVeCarControls::get_off_handbrake_rate(){
     return handbrake.off_rate;
 }
 
-void ViVeCarControls::set_off_handbrake_rate(double new_off_handbrake_rate){
+void ViVeCarControls::set_off_handbrake_rate(float new_off_handbrake_rate){
     handbrake.off_rate = new_off_handbrake_rate;
 }
 
-double ViVeCarControls::get_minimum_handbrake(){
+float ViVeCarControls::get_minimum_handbrake(){
     return handbrake.minimum;
 }
 
-void ViVeCarControls::set_minimum_handbrake(double new_minimum_handbrake){
+void ViVeCarControls::set_minimum_handbrake(float new_minimum_handbrake){
     handbrake.minimum = new_minimum_handbrake;
 }
 
-double ViVeCarControls::get_maximum_handbrake(){
+float ViVeCarControls::get_maximum_handbrake(){
     return handbrake.maximum;
 }
 
-void ViVeCarControls::set_maximum_handbrake(double new_maximum_handbrake){
+void ViVeCarControls::set_maximum_handbrake(float new_maximum_handbrake){
     handbrake.maximum = new_maximum_handbrake;
 }
 
@@ -280,35 +280,35 @@ void ViVeCarControls::set_is_clutch_digital(bool new_is_clutch_digital){
     clutch.is_digital = new_is_clutch_digital;
 }
 
-double ViVeCarControls::get_on_clutch_rate(){
+float ViVeCarControls::get_on_clutch_rate(){
     return clutch.on_rate;
 }
 
-void ViVeCarControls::set_on_clutch_rate(double new_on_clutch_rate){
+void ViVeCarControls::set_on_clutch_rate(float new_on_clutch_rate){
     clutch.on_rate = new_on_clutch_rate;
 }
 
-double ViVeCarControls::get_off_clutch_rate(){
+float ViVeCarControls::get_off_clutch_rate(){
     return clutch.off_rate;
 }
 
-void ViVeCarControls::set_off_clutch_rate(double new_off_clutch_rate){
+void ViVeCarControls::set_off_clutch_rate(float new_off_clutch_rate){
     clutch.off_rate = new_off_clutch_rate;
 }
 
-double ViVeCarControls::get_minimum_clutch(){
+float ViVeCarControls::get_minimum_clutch(){
     return clutch.minimum;
 }
 
-void ViVeCarControls::set_minimum_clutch(double new_minimum_clutch){
+void ViVeCarControls::set_minimum_clutch(float new_minimum_clutch){
     clutch.minimum = new_minimum_clutch;
 }
 
-double ViVeCarControls::get_maximum_clutch(){
+float ViVeCarControls::get_maximum_clutch(){
     return clutch.minimum;
 }
 
-void ViVeCarControls::set_maximum_clutch(double new_maximum_clutch){
+void ViVeCarControls::set_maximum_clutch(float new_maximum_clutch){
     clutch.maximum = new_maximum_clutch;
 }
 

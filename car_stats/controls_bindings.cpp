@@ -1,6 +1,10 @@
 #include "controls.hpp"
 
 void ViVeCarControls::_bind_methods(){
+    BIND_ENUM_CONSTANT(NONE);
+    BIND_ENUM_CONSTANT(AUTOMATIC_CLUTCH);
+    BIND_ENUM_CONSTANT(FULL_ASSISTANCE);
+
     ClassDB::bind_method(D_METHOD("get_control_map_name"), &ViVeCarControls::get_control_map_name);
     ClassDB::bind_method(D_METHOD("set_control_map_name", "control_map_name"), &ViVeCarControls::set_control_map_name);
 
@@ -10,10 +14,10 @@ void ViVeCarControls::_bind_methods(){
     ClassDB::bind_method(D_METHOD("set_action_name_shift_down", "action_name_shift_down"), &ViVeCarControls::set_action_name_shift_down);
     ClassDB::bind_method(D_METHOD("get_shifting_assistance"), &ViVeCarControls::get_shifting_assistance);
     ClassDB::bind_method(D_METHOD("set_shifting_assistance", "shifting_assistance"), &ViVeCarControls::set_shifting_assistance);
-    
+
     ClassDB::bind_method(D_METHOD("get_use_analog_steering"), &ViVeCarControls::get_use_analog_steering);
     ClassDB::bind_method(D_METHOD("set_use_analog_steering", "use_analog_steering"), &ViVeCarControls::set_use_analog_steering);
-    
+
     ClassDB::bind_method(D_METHOD("get_steer_sensitivity"), &ViVeCarControls::get_steer_sensitivity);
     ClassDB::bind_method(D_METHOD("set_steer_sensitivity", "steer_sensitivity"), &ViVeCarControls::set_steer_sensitivity);
 
@@ -94,62 +98,58 @@ void ViVeCarControls::_bind_methods(){
 
 
     ADD_PROPERTY(PropertyInfo(Variant::STRING, "control_map_name"), "set_control_map_name", "get_control_map_name");
-    
+
     ADD_GROUP("Shifting", "");
     ADD_PROPERTY(PropertyInfo(Variant::STRING, "action_name_shift_up"), "set_action_name_shift_up", "get_action_name_shift_up");
     ADD_PROPERTY(PropertyInfo(Variant::STRING, "action_name_shift_down"), "set_action_name_shift_down", "get_action_name_shift_down");
     ADD_PROPERTY(PropertyInfo(Variant::INT, "shifting_assistance", PROPERTY_HINT_ENUM, "None, Auto-clutch, Full Assist"), "set_shifting_assistance", "get_shifting_assistance");
-    
+
     ADD_GROUP("Steering", "");
     ADD_PROPERTY(PropertyInfo(Variant::BOOL, "use_analog_steering"), "set_use_analog_steering", "get_use_analog_steering");
     ADD_PROPERTY(PropertyInfo(Variant::BOOL, "loose_steering"), "set_loose_steering", "get_loose_steering");
 
-    ADD_GROUP("Analog", "Steering");
+    ADD_GROUP("Analog", "");
     ADD_PROPERTY(PropertyInfo(Variant::REAL, "steer_sensitivity"), "set_steer_sensitivity", "get_steer_sensitivity");
-    
-    ADD_GROUP("Digital", "Steering");
-    ADD_PROPERTY(PropertyInfo(Variant::STRING, "action_name_steer_left"), "set_action_name_steer_left", "get_action_name_steer_left");
-    ADD_PROPERTY(PropertyInfo(Variant::STRING, "action_name_steer_right"), "set_action_name_steer_right", "get_action_name_steer_right");
-    ADD_PROPERTY(PropertyInfo(Variant::REAL, "button_steer_speed"), "set_button_steer_speed", "get_button_steer_speed");
-    ADD_PROPERTY(PropertyInfo(Variant::REAL, "button_return_speed"), "set_button_return_speed", "get_button_return_speed");
-    ADD_PROPERTY(PropertyInfo(Variant::REAL, "button_compensate_speed"), "set_button_compensate_speed", "get_button_compensate_speed");
+
+    ADD_GROUP("Digital", "steer_");
+    ADD_PROPERTY(PropertyInfo(Variant::STRING, "steer_action_name_left"), "set_action_name_steer_left", "get_action_name_steer_left");
+    ADD_PROPERTY(PropertyInfo(Variant::STRING, "steer_action_name_right"), "set_action_name_steer_right", "get_action_name_steer_right");
+    ADD_PROPERTY(PropertyInfo(Variant::REAL, "steer_button_down_speed"), "set_button_steer_speed", "get_button_steer_speed");
+    ADD_PROPERTY(PropertyInfo(Variant::REAL, "steer_button_up_speed"), "set_button_return_speed", "get_button_return_speed");
+    ADD_PROPERTY(PropertyInfo(Variant::REAL, "steer_button_compensate_speed"), "set_button_compensate_speed", "get_button_compensate_speed");
     ADD_PROPERTY(PropertyInfo(Variant::REAL, "steer_amount_decay"), "set_steer_amount_decay", "get_steer_amount_decay");
-    ADD_PROPERTY(PropertyInfo(Variant::BOOL, "enable_steering_assistance"), "set_enable_steering_assistance", "get_enable_steering_assistance");
-    ADD_PROPERTY(PropertyInfo(Variant::REAL, "steering_assistance"), "set_steering_assistance", "get_steering_assistance");
+    ADD_PROPERTY(PropertyInfo(Variant::BOOL, "steer_enable_assistance"), "set_enable_steering_assistance", "get_enable_steering_assistance");
+    ADD_PROPERTY(PropertyInfo(Variant::REAL, "steer_assistance"), "set_steering_assistance", "get_steering_assistance");
 
-    ADD_GROUP("Throttle", "");
-    ADD_PROPERTY(PropertyInfo(Variant::STRING, "action_name_throttle"), "set_action_name_throttle", "get_action_name_throttle");
-    ADD_PROPERTY(PropertyInfo(Variant::BOOL, "is_throttle_digital"), "set_is_throttle_digital", "get_is_throttle_digital");
-    ADD_PROPERTY(PropertyInfo(Variant::REAL, "on_throttle_rate"), "set_on_throttle_rate", "get_on_throttle_rate");
-    ADD_PROPERTY(PropertyInfo(Variant::REAL, "off_throttle_rate"), "set_off_throttle_rate", "get_off_throttle_rate");
-    ADD_PROPERTY(PropertyInfo(Variant::REAL, "minimum_throttle"), "set_minimum_throttle", "get_minimum_throttle");
-    ADD_PROPERTY(PropertyInfo(Variant::REAL, "maximum_throttle"), "set_maximum_throttle", "get_maximum_throttle");
+    ADD_GROUP("Throttle", "throttle_");
+    ADD_PROPERTY(PropertyInfo(Variant::STRING, "throttle_action_name"), "set_action_name_throttle", "get_action_name_throttle");
+    ADD_PROPERTY(PropertyInfo(Variant::BOOL, "throttle_is_digital"), "set_is_throttle_digital", "get_is_throttle_digital");
+    ADD_PROPERTY(PropertyInfo(Variant::REAL, "throttle_on_rate"), "set_on_throttle_rate", "get_on_throttle_rate");
+    ADD_PROPERTY(PropertyInfo(Variant::REAL, "throttle_off_rate"), "set_off_throttle_rate", "get_off_throttle_rate");
+    ADD_PROPERTY(PropertyInfo(Variant::REAL, "throttle_minimum"), "set_minimum_throttle", "get_minimum_throttle");
+    ADD_PROPERTY(PropertyInfo(Variant::REAL, "throttle_maximum"), "set_maximum_throttle", "get_maximum_throttle");
 
-    ADD_GROUP("Brake", "");
-    ADD_PROPERTY(PropertyInfo(Variant::STRING, "action_name_brake"), "set_action_name_brake", "get_action_name_brake");
-    ADD_PROPERTY(PropertyInfo(Variant::BOOL, "is_brake_digital"), "set_is_brake_digital", "get_is_brake_digital");
-    ADD_PROPERTY(PropertyInfo(Variant::REAL, "on_brake_rate"), "set_on_brake_rate", "get_on_brake_rate");
-    ADD_PROPERTY(PropertyInfo(Variant::REAL, "off_brake_rate"), "set_off_brake_rate", "get_off_brake_rate");
-    ADD_PROPERTY(PropertyInfo(Variant::REAL, "minimum_brake"), "set_minimum_brake", "get_minimum_brake");
-    ADD_PROPERTY(PropertyInfo(Variant::REAL, "maximum_brake"), "set_maximum_brake", "get_maximum_brake");
+    ADD_GROUP("Brake", "brake_");
+    ADD_PROPERTY(PropertyInfo(Variant::STRING, "brake_action_name"), "set_action_name_brake", "get_action_name_brake");
+    ADD_PROPERTY(PropertyInfo(Variant::BOOL, "brake_is_digital"), "set_is_brake_digital", "get_is_brake_digital");
+    ADD_PROPERTY(PropertyInfo(Variant::REAL, "brake_on_rate"), "set_on_brake_rate", "get_on_brake_rate");
+    ADD_PROPERTY(PropertyInfo(Variant::REAL, "brake_off_rate"), "set_off_brake_rate", "get_off_brake_rate");
+    ADD_PROPERTY(PropertyInfo(Variant::REAL, "brake_minimum"), "set_minimum_brake", "get_minimum_brake");
+    ADD_PROPERTY(PropertyInfo(Variant::REAL, "brake_maximum"), "set_maximum_brake", "get_maximum_brake");
 
-    ADD_GROUP("Handbrake", "");
-    ADD_PROPERTY(PropertyInfo(Variant::STRING, "action_name_handbrake"), "set_action_name_handbrake", "get_action_name_handbrake");
-    ADD_PROPERTY(PropertyInfo(Variant::BOOL, "is_handbrake_digital"), "set_is_handbrake_digital", "get_is_handbrake_digital");
-    ADD_PROPERTY(PropertyInfo(Variant::REAL, "on_handbrake_rate"), "set_on_handbrake_rate", "get_on_handbrake_rate");
-    ADD_PROPERTY(PropertyInfo(Variant::REAL, "off_handbrake_rate"), "set_off_handbrake_rate", "get_off_handbrake_rate");
-    ADD_PROPERTY(PropertyInfo(Variant::REAL, "minimum_handbrake"), "set_minimum_handbrake", "get_minimum_handbrake");
-    ADD_PROPERTY(PropertyInfo(Variant::REAL, "maximum_handbrake"), "set_maximum_handbrake", "get_maximum_handbrake");
+    ADD_GROUP("Handbrake", "handbrake_");
+    ADD_PROPERTY(PropertyInfo(Variant::STRING, "handbrake_action_name"), "set_action_name_handbrake", "get_action_name_handbrake");
+    ADD_PROPERTY(PropertyInfo(Variant::BOOL, "handbrake_is_digital"), "set_is_handbrake_digital", "get_is_handbrake_digital");
+    ADD_PROPERTY(PropertyInfo(Variant::REAL, "handbrake_on_rate"), "set_on_handbrake_rate", "get_on_handbrake_rate");
+    ADD_PROPERTY(PropertyInfo(Variant::REAL, "handbrake_off_rate"), "set_off_handbrake_rate", "get_off_handbrake_rate");
+    ADD_PROPERTY(PropertyInfo(Variant::REAL, "handbrake_minimum"), "set_minimum_handbrake", "get_minimum_handbrake");
+    ADD_PROPERTY(PropertyInfo(Variant::REAL, "handbrake_maximum"), "set_maximum_handbrake", "get_maximum_handbrake");
 
-    ADD_GROUP("Clutch", "");
-    ADD_PROPERTY(PropertyInfo(Variant::STRING, "action_name_clutch"), "set_action_name_clutch", "get_action_name_clutch");
-    ADD_PROPERTY(PropertyInfo(Variant::BOOL, "is_clutch_digital"), "set_is_clutch_digital", "get_is_clutch_digital");
-    ADD_PROPERTY(PropertyInfo(Variant::REAL, "on_clutch_rate"), "set_on_clutch_rate", "get_on_clutch_rate");
-    ADD_PROPERTY(PropertyInfo(Variant::REAL, "off_clutch_rate"), "set_off_clutch_rate", "get_off_clutch_rate");
-    ADD_PROPERTY(PropertyInfo(Variant::REAL, "minimum_clutch"), "set_minimum_clutch", "get_minimum_clutch");
-    ADD_PROPERTY(PropertyInfo(Variant::REAL, "maximum_clutch"), "set_maximum_clutch", "get_maximum_clutch");
-
-    BIND_ENUM_CONSTANT(NONE);
-    BIND_ENUM_CONSTANT(AUTOMATIC_CLUTCH);
-    BIND_ENUM_CONSTANT(FULL_ASSISTANCE);
+    ADD_GROUP("Clutch", "clutch_");
+    ADD_PROPERTY(PropertyInfo(Variant::STRING, "clutch_action_name"), "set_action_name_clutch", "get_action_name_clutch");
+    ADD_PROPERTY(PropertyInfo(Variant::BOOL, "clutch_is_digital"), "set_is_clutch_digital", "get_is_clutch_digital");
+    ADD_PROPERTY(PropertyInfo(Variant::REAL, "clutch_on_rate"), "set_on_clutch_rate", "get_on_clutch_rate");
+    ADD_PROPERTY(PropertyInfo(Variant::REAL, "clutch_off_rate"), "set_off_clutch_rate", "get_off_clutch_rate");
+    ADD_PROPERTY(PropertyInfo(Variant::REAL, "clutch_minimum"), "set_minimum_clutch", "get_minimum_clutch");
+    ADD_PROPERTY(PropertyInfo(Variant::REAL, "clutch_maximum"), "set_maximum_clutch", "get_maximum_clutch");
 }

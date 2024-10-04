@@ -3,10 +3,13 @@
 
 #include "scene/3d/ray_cast.h"
 
+class ViVeWheel;
+
 #include "wheel_stats/tyre_settings.h"
 #include "wheel_stats/axle.hpp"
 #include "wheel_stats/compound_settings.hpp"
 #include "wheel_stats/suspension.h"
+
 
 class ViVeWheel : public RayCast {
 	GDCLASS(ViVeWheel, RayCast);

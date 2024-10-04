@@ -1,7 +1,9 @@
 Import('env')
 
 base_files = [
-    
+    "vive_singleton.hpp",
+    "vive_car.cpp",
+    "vive_wheel.cpp"
 ]
 
 wheel_stat_files = [
@@ -15,9 +17,11 @@ car_stat_files = [
     "car_stats/controls.cpp",
     "car_stats/controls_bindings.cpp",
     "car_stats/controls_set_gets.cpp",
+    "car_stats/transmission.cpp",
+    "car_stats.torque.cpp",
 ]
 
 env.add_source_files(env.modules_sources, "register_types.cpp")
 env.add_source_files(env.modules_sources, wheel_stat_files)
 env.add_source_files(env.modules_sources, car_stat_files)
-env.add_source_files(env.modules_sources, base_files)
+#env.add_source_files(env.modules_sources, base_files)

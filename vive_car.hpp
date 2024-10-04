@@ -8,6 +8,7 @@
 
 #include "car_stats/controls.hpp"
 #include "car_stats/transmission.hpp"
+#include "car_stats/torque.hpp"
 
 #include "vive_wheel.hpp"
 
@@ -17,10 +18,13 @@ class ViVeCar : public RigidBody {
 protected:
 	static void _bind_methods();
 
+	void _notification(int what);
 public:
 	void scene_tree_ready(); //_ready
 	void simulation_process(); // _physics_process()
 	void debug_process(); //_process()
+
+	virtual String get_configuration_warning() const; //for editor warnings, eg. about no child wheels
 
 	/** Custom performance monitors aren't in Godot 3 (yet?)
 	void setup_performance_monitors(); //_enter_tree

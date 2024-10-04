@@ -1,5 +1,7 @@
 #include "suspension.h"
 
+#include "modules/vita_vehicle/vive_wheel.hpp"
+
 double ViVeWheelSuspension::get_elasticity(double influence){
     return spring_stiffness * (sway_bar_elasticity * influence + 1.0);
 }
@@ -14,8 +16,10 @@ double ViVeWheelSuspension::get_total_rebound_dampening(double influence){
 
 //binding
 void ViVeWheelSuspension::_bind_methods(){
+    ClassDB::bind_method(D_METHOD("get_elasticity", "sway_bar_influence"), &ViVeWheelSuspension::get_elasticity);
+    ClassDB::bind_method(D_METHOD("get_total_compression_dampening", "sway_bar_influence"), &ViVeWheelSuspension::get_total_compression_dampening);
+    ClassDB::bind_method(D_METHOD("get_total_rebound_dampening", "sway_bar_influence"), &ViVeWheelSuspension::get_total_rebound_dampening);
 
-    
     ClassDB::bind_method(D_METHOD("get_spring_stiffness"), &ViVeWheelSuspension::get_spring_stiffness);
     ClassDB::bind_method(D_METHOD("set_spring_stiffness", "spring_stiffness"), &ViVeWheelSuspension::set_spring_stiffness);
     ClassDB::bind_method(D_METHOD("get_compression_dampening"), &ViVeWheelSuspension::get_compression_dampening);
@@ -128,7 +132,8 @@ double ViVeWheelSuspension::get_rest_position(){
 
 void ViVeWheelSuspension::set_rest_position(double new_rest_position){
     rest_position = new_rest_position;
-    if (parent_wheel.is_valid()){
-        parent_wheel->target_position.y = new_rest_position;
+    if (parent_wheel){
+        Vector3 cast_to = parent_wheel->get_cast_to();
+        parent_wheel->set_cast_to(Vector3(cast_to.x, new_rest_position, cast_to.z));
     }
 }

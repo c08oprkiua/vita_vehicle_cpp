@@ -3,10 +3,10 @@
 
 #include "core/resource.h"
 
+class ViVeCar;
+
 class ViVeTransmission : public Resource {
     GDCLASS(ViVeTransmission, Resource);
-private:
-    //Ref<ViVeCar> installed_car;
 protected:
     static void _bind_methods();
 
@@ -17,15 +17,14 @@ public:
         DRIVE = -2,
     };
 
+
+	//Not exposed to scripting
+    ViVeCar *installed_car;
+
     //virtual functions
-    double _run_transmission(double crankshaft_rpm);
-    int _current_gear();
+    virtual double _run_transmission(double crankshaft_rpm);
+    virtual int _current_gear();
 
-    /**
-    Ref<ViVeCar> get_installed_car();
-    void set_installed_car(Ref<ViVeCar>);
-     */
 };
-
 
 #endif

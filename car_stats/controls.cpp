@@ -8,14 +8,8 @@ ViVeCarControls::ViVeCarControls(){
 
 bool ViVeCarControls::PedalWrapper::update_press(bool just){
     if (is_digital){
-        if (just){
-            pressed = input_singleton->is_action_just_pressed(action_name);
-        }
-        else {
-            pressed = input_singleton->is_action_pressed(action_name);
-        }
-    }
-    else {
+		pressed = just ? input_singleton->is_action_just_pressed(action_name) : input_singleton->is_action_pressed(action_name);
+    } else {
         pressed = !Math::is_zero_approx(input_singleton->get_action_strength(action_name));
     }
     return pressed;
@@ -25,12 +19,10 @@ float ViVeCarControls::PedalWrapper::poll(bool cond){
     if (cond){
         if (is_digital){
             strength += on_rate / clock_mult;
-        }
-        else {
+        } else {
             strength = input_singleton->get_action_strength(action_name);
         }
-    }
-    else {
+    } else {
         strength -= off_rate / clock_mult;
     }
     strength = CLAMP(strength, minimum, maximum);
@@ -56,15 +48,15 @@ float ViVeCarControls::get_steer_axis(float external_analog){
         if (!Math::is_zero_approx(steer_direction)){
             if (should_compensate){
                 steer_axis_amount += steer_direction * button_compensate_speed;
-            } 
+            }
             else {
                 steer_axis_amount += steer_direction * button_steer_speed;
             }
         }
         else {
             if (Math::absf(steer_axis_amount) > button_return_speed){
-                steer_axis_amount = Math::move_toward(steer_axis_amount, 0.0, button_return_speed);
-            } 
+                steer_axis_amount = Math::move_toward(steer_axis_amount, 0.0f, button_return_speed);
+            }
             else {
                 steer_axis_amount = 0.0;
             }
@@ -107,19 +99,11 @@ bool ViVeCarControls::is_clutch_pressed(bool just){
 }
 
 bool ViVeCarControls::is_shift_up_pressed(bool just){
-    if (just){
-        return input_singleton->is_action_just_pressed(action_name_shift_up);
-    }
-    else{
-        return input_singleton->is_action_pressed(action_name_shift_up);
-    }
+	ERR_FAIL_COND_V(action_name_shift_up == "", false);
+	return just ? input_singleton->is_action_just_pressed(action_name_shift_up) : input_singleton->is_action_pressed(action_name_shift_up);
 }
 
 bool ViVeCarControls::is_shift_down_pressed(bool just){
-    if (just){
-        return input_singleton->is_action_just_pressed(action_name_shift_down);
-    }
-    else{
-        return input_singleton->is_action_pressed(action_name_shift_down);
-    }
+	ERR_FAIL_COND_V(action_name_shift_down == "", false);
+	return just ? input_singleton->is_action_just_pressed(action_name_shift_down) : input_singleton->is_action_pressed(action_name_shift_down);
 }

@@ -1,7 +1,7 @@
 #ifndef VIVE_WHEEL_AXLE
 #define VIVE_WHEEL_AXLE
 
-#include "../vive_wheel.hpp"
+#include "core/resource.h"
 
 class ViVeWheelAxle: public Resource {
     GDCLASS(ViVeWheelAxle, Resource);
